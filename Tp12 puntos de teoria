@@ -1,0 +1,173 @@
+1. Modificadores de acceso a atributos y métodos
+¿Qué son los modificadores de acceso?
+Los modificadores de acceso son palabras clave que determinan desde dónde pueden ser utilizados los atributos y métodos de una clase. Sirven para proteger los datos internos, evitar modificaciones indebidas y organizar mejor el funcionamiento interno de un objeto. Su función principal es permitir encapsulación, es decir, decidir qué partes de una clase son visibles públicamente y cuáles se mantienen ocultas.
+¿Cuáles son los modificadores de acceso disponibles en C++?
+ Sí aparecen en el PDF
+Public: se puede acceder desde cualquier parte del código.
+Private: se puede acceder solo desde la clase 
+Protected: se puede acceder desde la clase padre y clases hijas.
+¿Cómo se utilizan los modificadores de acceso?
+private:
+Los atributos generalmente se declaran como privados para impedir el acceso directo desde fuera de la clase.
+Ejemplo del PDF en la clase Cliente:
+class Cliente 
+char nombre[40];
+float monto;
+public:
+ ...
+};
+public:
+Los métodos se vuelven públicos cuando deben ser utilizados desde fuera de la clase.
+Por ejemplo, los métodos depositar, extraer, etc.
+protected:
+Se utiliza en herencia para que las clases derivadas puedan acceder a los atributos heredados, pero sin que sean públicos hacia afuera.
+Ejemplo del PDF:
+class Operacion {
+protected:
+int valor1;
+int valor2;
+  int resultado;
+public:
+ ...
+};
+2. Constructor de clase
+¿Qué es un constructor de clase?
+
+Es un método especial que tiene el mismo nombre que la clase y se ejecuta automáticamente al crear un objeto.
+Sirve para inicializar atributos o preparar el objeto antes de usarse.
+
+¿Cuál es el propósito del constructor?
+
+Inicializar el objeto con valores por defecto o con valores indicados mediante parámetros.
+Ejemplo:
+EstructuraVector::EstructuraVector() {
+vec[f] = 0;
+}
+¿Cómo se define un constructor en C++?
+Debe tener el mismo nombre que la clase.
+No tiene tipo de retorno.
+Puede estar sobrecargado (más de un constructor).
+Puede recibir parámetros.
+Ejemplo con sobrecarga:
+EstructuraVector();
+EstructuraVector(int valor);
+3. Destructor de clase
+¿Qué es un destructor?
+Es un método especial que se ejecuta automáticamente cuando el objeto deja de existir.
+¿Cuál es su propósito?
+Liberar memoria, cerrar archivos, desconectar recursos, etc.
+¿Cómo se define un destructor?
+Se escribe igual que el constructor, pero precedido por ~:
+~MiClase();
+4. Parte private y public de una clase
+¿Qué es la parte private y public?
+Una clase puede dividir sus miembros en:
+private: uso exclusivo de la propia clase.
+public: accesible desde fuera del objeto.
+Diferencias entre private y public
+public
+private
+Accesible desde el exterior
+Solo accesible desde la clase
+Se usa para métodos y algunas funciones
+Se usa principalmente para atributos
+Es la interfaz de comunicación
+Es la parte interna/oculta
+
+
+¿Cómo se usan en C++?
+Los atributos se declaran private para protegerlos.
+Los métodos se declaran public para ser utilizados desde un objeto.
+Es lo que se ve en todas las clases del PDF: Cliente, Banco, Dado, EstructuraVector, Operación, Suma, etc.
+5. Sobrecarga de métodos
+¿Qué es la sobrecarga de métodos?
+Es definir varios métodos con el mismo nombre pero con distinta lista de parámetros (cantidad o tipo).
+El compilador elige cuál usar según los parámetros enviados.
+Ejemplo del PDF (4 métodos llamados mayor):
+int mayor(int x1,int x2);
+int mayor(int x1,int x2,int x3);
+float mayor(float x1,float x2);
+float mayor(float x1,float x2,float x3);
+¿Cuál es el propósito?
+Evitar crear muchos nombres distintos para funciones que hacen lo mismo.
+
+
+¿Cómo se implementa en C++?
+Definiendo funciones con el mismo nombre pero con distinta firma (parámetros). Lo importante:
+misma cantidad, distinto tipo
+o distinta cantidad de parámetros
+6. Colaboración de clases
+¿Qué es la colaboración?
+Es cuando una clase contiene objetos de otra clase como atributos.
+La relación es "tiene un".
+Ejemplos:
+Un Banco tiene 3 Clientes.
+Un JuegoDeDados tiene 3 Dado.
+¿Cuál es su propósito?
+Permite que varias clases interactúen entre sí para resolver un problema completo, dividiendo responsabilidades.
+¿Cómo se implementa en C++?
+Declarando objetos dentro de la clase:
+class Banco {
+    Cliente cliente1, cliente2, cliente3;
+};
+Y usándolos:
+cliente1.depositar(100);
+
+7. La herencia
+¿Qué es la herencia?
+Es cuando una clase nueva (derivada) se construye a partir de otra clase existente (base), heredando sus atributos y métodos.
+Ejemplo:
+class Suma : public Operacion { };
+Tipos de herencia (del PDF)
+Por nivel de acceso:
+pública
+protegida
+privada
+Por estructura:
+Simple
+múltiple
+multinivel
+jerárquica
+híbrida	
+
+
+
+Ventajas y desventajas
+Ventajas:
+Reutilización de código.
+Facilita extensiones y mejoras.
+Permite polimorfismo.
+Organiza clases por jerarquías.
+Desventajas:
+Puede complicar el diseño si se abusa.
+Los cambios en la clase base afectan a todas las derivadas.
+La herencia múltiple puede generar conflictos.
+¿Cómo se implementa en C++?
+Sintaxis:
+class Derivada : public Base {
+};
+Ejemplo completo del PDF (Suma y Resta):
+class Suma : public Operacion {
+public:
+    void operar();
+};
+8. Diferencia entre colaboración y herencia
+ Colaboración
+Relación "tiene un"
+Una clase contiene objetos de otra
+Ejemplo:
+Banco tiene Clientes
+Relación "es un"
+Una clase deriva de otra
+Ejemplo:
+Suma es una Operación
+
+TP punto1
+I. ¿Compila exitosamente? ¿Por qué?
+Si, el programa compila correctamente. La clase derivada hereda publicamente de la clase base y el constructor de la clase derivada llama al constructor de la clase base usando la lista de inicializacion. Ademas, el metodo unMetodo es publico en la clase base, por lo que puede ejecutarse desde el main. El atributo unaVar es protected, lo que permite que la clase derivada lo herede correctamente sin exponerlo fuera de la jerarquia de clases.
+
+II. ¿Qué resultado se obtiene luego de su ejecución?
+En el main se crea un objeto de tipo ClaseDerivada llamado obj1 con valor inicial 50. Esto hace que el constructor de ClaseBase inicialice unaVar con ese valor. Despues, al llamar al metodo unMetodo(), se imprime en pantalla:
+unaVar = 50
+
+
