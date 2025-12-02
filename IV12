@@ -1,0 +1,46 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+class Socio{
+char nombre[40];
+int antiguedad;
+public:
+Socio();
+int getAntiguedad();
+void imprimir();
+};
+Socio::Socio(){
+cout<<"Nombre del socio: ";
+cin>>nombre;
+cout<<"Antiguedad en años: ";
+cin>>antiguedad;
+}
+int Socio::getAntiguedad(){
+return antiguedad;
+}
+void Socio::imprimir(){
+cout<<"Nombre: "<<nombre<<" - Antiguedad: "<<antiguedad<<" años"<<endl;
+}
+
+class Club{
+Socio s1;
+Socio s2;
+Socio s3;
+public:
+Club();
+void socioMasAntiguo();
+};
+Club::Club():s1(),s2(),s3(){
+}
+void Club::socioMasAntiguo(){
+Socio *mayor=&s1;
+if(s2.getAntiguedad()>mayor->getAntiguedad())mayor=&s2;
+if(s3.getAntiguedad()>mayor->getAntiguedad())mayor=&s3;
+cout<<"Socio mas antiguo:"<<endl;
+mayor->imprimir();
+}
+int main(){
+Club club;
+club.socioMasAntiguo();
+return 0;
+}
